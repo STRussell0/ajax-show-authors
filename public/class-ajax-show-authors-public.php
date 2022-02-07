@@ -83,7 +83,6 @@ class Ajax_Show_Authors_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-		$ajaxURL = admin_url('admin-ajax.php');
 
 		/**
 		 * This function is provided for demonstration purposes only.
