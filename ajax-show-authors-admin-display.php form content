@@ -1,0 +1,60 @@
+          <?php 
+
+            $show_authors_checbox = get_option ('show_authors_settings_checkbox');
+
+                foreach ( $users as $user ) {
+                    echo '<input type="checkbox" id="' . $user . '" name ="' . $user . '" value ="' . $user . '">';
+                    echo '<label for="' . $user . '">  ' . $user . '</label>';
+                    echo '<br>';
+                }
+                submit_button( 'Save Settings');
+                if(isset($_POST['Super_Admin'])) {
+                   echo 'Hello there';
+                }
+            ?>
+
+
+    2nd try
+
+                        <?php 
+                foreach ( $user_types as $user ) {
+                    
+                    echo '<input type="checkbox" id="' . $user . '" name ="' . $user . '" value ="' . $user . '"';
+                    
+                    foreach ( $users_roles as $roles => $value) {
+                        if($value == true) {
+                            echo ' checked>';
+                        } else {
+                            echo '>';
+                        }
+                        echo '<label for="' . $user . '">  ' . $user . '</label>';
+                        echo '<br>';
+                        }
+                }
+                submit_button( 'Save Settings', 'primary', 'submit', true, array(
+                    'onclick' => 'save_settings()'
+                ));
+                if(isset($_POST['super_admin'])) {
+                   echo 'Hello there';
+                }
+            ?>
+
+
+
+            3rd try
+
+                        <?php                
+                    echo '<input type="checkbox" id="super_admin" name="super_admin"';
+                    
+                    if ($users_roles['super_admin'] == true) {
+                        echo ' checked>';
+                    } else {
+                        echo '>';
+                    }
+                    echo '<label for="super_admin">Super Admin</label>';
+                    echo '<br>';
+
+                submit_button( 'Save Settings', 'primary', 'submit', true, array(
+                    'onclick' => 'save_settings()'
+                ));
+            ?>

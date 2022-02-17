@@ -154,9 +154,12 @@ class Ajax_Show_Authors {
 
 		$plugin_admin = new Ajax_Show_Authors_Admin( $this->get_plugin_name(), $this->get_version() );
 
+		$this->loader->add_action( 'admin_menu', $plugin_admin, 'display_admin_page');
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action('wp_ajax_save_settings', $plugin_admin, 'save_settings');
 
+		// $this->loader->add_action( 'admin_init', $plugin_admin, 'show_authors_settings_init');
 	}
 
 	/**
@@ -173,7 +176,8 @@ class Ajax_Show_Authors {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 		$this->loader->add_action('wp_ajax_show_authors', $plugin_public, 'show_authors');
-		$this->loader-> add_shortcode('shortcode_show_authors', $plugin_public, 'display');
+		$this->loader->add_action("wp_ajax_nopriv_show_authors", $plugin_public, "my_must_login");
+		$this->loader->add_shortcode('shortcode_show_authors', $plugin_public, 'display');
 
 	}
 

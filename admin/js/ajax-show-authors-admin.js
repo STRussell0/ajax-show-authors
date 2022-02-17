@@ -1,32 +1,59 @@
-(function( $ ) {
-	'use strict';
+jQuery(document).ready( function() {
 
-	/**
-	 * All of the code for your admin-facing JavaScript source
-	 * should reside in this file.
-	 *
-	 * Note: It has been assumed you will write jQuery code here, so the
-	 * $ function reference has been prepared for usage within the scope
-	 * of this function.
-	 *
-	 * This enables you to define handlers, for when the DOM is ready:
-	 *
-	 * $(function() {
-	 *
-	 * });
-	 *
-	 * When the window is loaded:
-	 *
-	 * $( window ).load(function() {
-	 *
-	 * });
-	 *
-	 * ...and/or other possibilities.
-	 *
-	 * Ideally, it is not considered best practise to attach more than a
-	 * single DOM-ready or window-load handler for a particular page.
-	 * Although scripts in the WordPress core, Plugins and Themes may be
-	 * practising this, we should strive to set a better example in our own work.
-	 */
 
-})( jQuery );
+
+
+	jQuery("#savebutton").click( function() {
+
+		admin = false;
+		editor = false;
+		author = false;
+		contributor = false;
+		subscriber = false;
+		
+		if(document.getElementById('administrator').checked) {
+			admin = true;
+		}
+		if(document.getElementById('editor').checked) {
+			editor = true;
+		}
+		if(document.getElementById('author').checked) {
+			author = true;
+		}
+		if(document.getElementById('contributor').checked) {
+			contributor = true;
+		}
+		if(document.getElementById('subscriber').checked) {
+			subscriber = true;
+		}
+		
+	   ajaxurl = jQuery(this).attr("admin");
+	   console.log(ajaxurl);
+	   jQuery.ajax({
+		  type : "post",
+		  dataType : "json",
+		  url : ajaxurl,
+		  data : {action: "save_settings",
+				  administrator: admin,
+				  editor: editor,
+				  author: author,
+				  contributor: contributor,
+				  subscriber: subscriber},
+		  success: function() {
+
+			let saved = document.getElementById('saved-setting');
+			saved.classList.remove('visibility')
+			saved.classList.add('animation')
+			saved.classList.add('opacity')
+
+			function saved_setting () {
+				saved.classList.add('visibility')
+				saved.classList.remove('animation')
+			}
+			 setTimeout(() => saved_setting(), 2000);
+		  }
+	})
+ 
+ })
+
+})

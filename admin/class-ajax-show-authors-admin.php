@@ -74,6 +74,7 @@ class Ajax_Show_Authors_Admin {
 		 */
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/ajax-show-authors-admin.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'bootstrap', '//cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css');
 
 	}
 
@@ -99,5 +100,54 @@ class Ajax_Show_Authors_Admin {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/ajax-show-authors-admin.js', array( 'jquery' ), $this->version, false );
 
 	}
+
+	public function save_settings(){
+
+		$users = array(
+			'administrator' => false,
+			'editor' => false,
+			'author' => false,
+			'contributor' => false,
+			'subscriber' => false
+		);
+
+		foreach ( $users as $user => $value ) {
+			if($_REQUEST[$user] == 'true') {
+				$users[$user] = true;
+			}
+		}
+
+		update_option('show_users', $users, false);
+
+		$users['success'] = true;
+
+		$result = json_encode($users);
+		echo $result;
+		die();
+	}
+
+
+	public function display_admin_page () {
+		add_menu_page(
+			'Show Authors',
+			'Show Authors',
+			'manage_options',
+			'show-authors-list', // ** add_settings_section needs this
+			array($this, 'showPage'),
+			'',
+			'3.0'
+		);
+	}
+
+
+	/**
+	 * 
+	 * Template page
+	 */
+	public function showPage () {
+		include ('partials/ajax-show-authors-admin-display.php');
+	}
+
+
 
 }

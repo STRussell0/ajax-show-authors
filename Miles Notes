@@ -1,0 +1,10 @@
+Miles puts shortcode function in public.php file in the public folder.
+Function is meant to register_shortcodes. So he puts any shortcode he wants inside that function
+He then made the shortcode for the html display
+You then can go to the loader page to point to the function in the public.php file that has the register_shortcodes function.
+
+Using partials to display the front end information.
+
+
+somewere in the backend add a settings page where you can add in types of roles to display from plugin
+this will require use of the admin folder

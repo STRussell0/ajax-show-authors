@@ -106,13 +106,20 @@ class Ajax_Show_Authors_Public {
 			exit( "No naughty business please :)");
 		}
 	
-		$users = get_users();
+		$user_roles = get_option( 'show_users' );
 		$count = 0;
-	
-		foreach ($users as $user) {
-			$result[$count] = $user->display_name;
-			$count++;
-		}
+
+		foreach($user_roles as $role => $values) {
+			if ($user_roles[$role]){
+					$users = get_users( array (
+						'role' => $role
+				));
+			
+			foreach ($users as $user) {
+				$result[$count] = $user->display_name;
+				$count++;
+			}
+		}}
 			
 		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') { 
 			$result = json_encode($result);
@@ -125,11 +132,16 @@ class Ajax_Show_Authors_Public {
 		 die();
 	}
 
+	function my_must_login() {
+		echo "You must log in to vote";
+		die();
+	 }
+	
 	public function display() {
 		$nonce = wp_create_nonce("show_authors_nonce");
 		$ajaxurl = admin_url('admin-ajax.php');
 		?>
-			<button admin="<?php echo $ajaxurl?>" href="<?php echo $link ?>" id="linkbutton" data-nonce="<?php echo $nonce; ?>">Click here to see all site users.</button>
+			<button admin="<?php echo $ajaxurl?>" id="linkbutton" data-nonce="<?php echo $nonce; ?>">Click here to see all site users.</button>
 			<div>
 				<ul id="list">
 	

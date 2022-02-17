@@ -1,0 +1,52 @@
+	/**
+	 * 
+	 * Settings
+	 */
+
+	 function show_authors_settings_init () {
+		 // Setup settings section
+
+		add_settings_section (
+			'show-authors-list-section',
+			'Show Authors Settings Page',
+			'show_authors_list_section',
+			'show-authors-list' // ** Must be the same as ID from add_menu_page
+		);
+
+		// Add Options
+
+		add_option( 'super_admin', 'super_admin');
+
+		// Register settings
+
+		register_setting (
+			'show-authors-settings-group',
+			'super_admin',
+			// array (
+			// 	'type' => 'string',
+			// 	'sanitize_callback' => 'sanitize_text_field',
+			// 	'default' => '',
+			// )
+		);
+
+		//Create inputs
+
+		add_settings_field (
+			'show-authors-field',
+			'Super Admin',
+			// 'show_authors_settings_checkbox_callback',
+			'show_authors_input_fields', //Callback that will display what input field you want
+			'show-authors-list', // ** Must be the same ID as page
+			'show-authors-list-section'
+		);
+
+		function show_authors_list_section () { // Might need to store this outside of this function and create new add action
+			echo 'Customize your Sidebar Information';
+		}
+
+		function show_authors_input_fields () {
+			$superAdmin = esc_attr(get_option( 'super_admin' ));
+			$checked = ($superAdmin == true ? 'checked' : '');
+			echo '<input type="checkbox" name="super_admin" value="' . $superAdmin . '">';
+		} 
+	 }

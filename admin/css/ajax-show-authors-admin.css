@@ -2,3 +2,29 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+.visibility {
+     display: none;
+ }
+
+ .animation {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px #2271B1 solid;
+    border-radius: 20px;
+    color: #2271B1;
+    font-size: 20px;
+ }
+
+ .opacity {
+     opacity: 1;
+     animation: fade 2s
+ }
+
+ @keyframes fade {
+     0%, 100% { opacity: 0 }
+     50% { opacity: 1 }
+ }
