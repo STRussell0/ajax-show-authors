@@ -132,7 +132,7 @@ class Ajax_Show_Authors_Admin {
 			'Show Authors',
 			'Show Authors',
 			'manage_options',
-			'show-authors-list', // ** add_settings_section needs this
+			'show-authors-list',
 			array($this, 'showPage'),
 			'',
 			'3.0'
